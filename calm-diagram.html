@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CALM – Themes in Our Caregiving Journey</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, #1a2e42 0%, #0d1b2a 55%, #07111c 100%);
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+  }
+
+  h1 {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .diagram {
+    position: relative;
+    width: 520px;
+    height: 520px;
+  }
+
+  /* ── Petals ── */
+  .petal {
+    position: absolute;
+    width: 185px;
+    height: 185px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: filter 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  .petal:hover {
+    filter: brightness(1.18);
+  }
+
+  .petal-label {
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    line-height: 1.35;
+    pointer-events: none;
+  }
+
+  .petal-hint {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.6rem;
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  /* Individual petal colors */
+  .petal-1 { background: radial-gradient(circle at 40% 40%, #3dbdad, #2a9d8f); }
+  .petal-2 { background: radial-gradient(circle at 40% 40%, #2e5080, #1d3557); }
+  .petal-3 { background: radial-gradient(circle at 40% 40%, #f2d07a, #e9c46a); }
+  .petal-4 { background: radial-gradient(circle at 40% 40%, #f08060, #e76f51); }
+  .petal-5 { background: radial-gradient(circle at 40% 40%, #7a8a4a, #606c38); }
+
+  /* Animation delays so each petal breathes out of phase */
+  .petal-1 { animation-delay: 0s; }
+  .petal-2 { animation-delay: 0.4s; }
+  .petal-3 { animation-delay: 0.8s; }
+  .petal-4 { animation-delay: 1.2s; }
+  .petal-5 { animation-delay: 1.6s; }
+
+  /* Positions: evenly at 72° intervals, top = -90° */
+  /* top (270°): left=50%, top=50% - r */
+  .petal-1 { left: 50%;  top: calc(50% - 165px); }
+  /* upper-right (342°): */
+  .petal-2 { left: calc(50% + 157px); top: calc(50% - 51px); }
+  /* lower-right (54°): */
+  .petal-3 { left: calc(50% + 97px);  top: calc(50% + 134px); }
+  /* lower-left (126°): */
+  .petal-4 { left: calc(50% - 97px);  top: calc(50% + 134px); }
+  /* upper-left (198°): */
+  .petal-5 { left: calc(50% - 157px); top: calc(50% - 51px); }
+
+  @keyframes breathe {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    50%  { transform: translate(-50%, calc(-50% - 5px)) scale(1.045); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+  }
+
+  /* ── Center circle ── */
+  .center {
+    position: absolute;
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px;
+    z-index: 10;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  }
+
+  .center-calm {
+    color: #fff;
+    font-size: 1.55rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+  }
+
+  .center-camh {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .center-tagline {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.48rem;
+    margin-top: 8px;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+
+  /* ── Modal ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 17, 28, 0.78);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay.active { display: flex; }
+
+  .modal {
+    background: #12202e;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 40px 44px;
+    max-width: 440px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+    animation: modalIn 0.22s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-dot {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-bottom: 18px;
+  }
+
+  .modal-title {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .modal-desc {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.88rem;
+    line-height: 1.75;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: #fff; }
+
+  footer {
+    margin-top: 28px;
+    color: rgba(255,255,255,0.28);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<h1>Themes in Our Caregiving Journey</h1>
+
+<div class="diagram">
+
+  <!-- Petals -->
+  <div class="petal petal-1" onclick="openModal(0)">
+    <span class="petal-label">Getting<br>Unstuck</span>
+    <span class="petal-hint">tap to explore</span>
+  </div>
+
+  <div class="petal petal-2" onclick="openModal(1)">
+    <span class="petal-label">Blurred<br>Lines</span>
+    <span class="petal-hint">tap to explore</span>
+  </div>
+
+  <div class="petal petal-3" onclick="openModal(2)">
+    <span class="petal-label">An Emotional<br>Journey</span>
+    <span class="petal-hint">tap to explore</span>
+  </div>
+
+  <div class="petal petal-4" onclick="openModal(3)">
+    <span class="petal-label">Role of the<br>Advocate</span>
+    <span class="petal-hint">tap to explore</span>
+  </div>
+
+  <div class="petal petal-5" onclick="openModal(4)">
+    <span class="petal-label">Connecting<br>Differently</span>
+    <span class="petal-hint">tap to explore</span>
+  </div>
+
+  <!-- Center -->
+  <div class="center">
+    <div class="center-calm">CALM</div>
+    <div class="center-camh">× CAMH</div>
+    <div class="center-tagline">Created by and for<br>caregivers of loved ones<br>with multiple mental<br>health conditions</div>
+  </div>
+
+</div>
+
+<footer>Click any petal to learn more &nbsp;·&nbsp; Press Esc to close</footer>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-dot" id="modal-dot"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-desc" id="modal-desc"></div>
+  </div>
+</div>
+
+<script>
+  const themes = [
+    {
+      title: "Getting Unstuck",
+      color: "#2a9d8f",
+      desc: "Connecting with curiosity, patience, and openness to change. This theme explores self-awareness and personal growth as caregivers learn to navigate uncertainty and find new ways forward on their journey."
+    },
+    {
+      title: "Blurred Lines",
+      color: "#1d3557",
+      desc: "Navigating the mental healthcare system, partnering with clinicians, and working toward collaboration for understanding and healing. The boundaries between caregiver, patient, and system can feel unclear — and learning to work within them takes courage."
+    },
+    {
+      title: "An Emotional Journey",
+      color: "#e9c46a",
+      desc: "Caregivers often face their own mental health challenges while supporting a loved one. This theme is about developing coping strategies, finding resilience, and connecting with others who truly understand the emotional weight of this role."
+    },
+    {
+      title: "Role of the Advocate",
+      color: "#e76f51",
+      desc: "Navigating a system that doesn't always feel trustworthy, and carrying the uncertainty of advocacy — especially for immigrants and marginalized groups who face additional barriers. This theme honours the strength it takes to speak up for a loved one."
+    },
+    {
+      title: "Connecting Differently",
+      color: "#606c38",
+      desc: "Supporting and nurturing your relationship with your loved one when mental illness changes how you connect. This theme explores new ways of being present, communicating with care, and maintaining the bond that matters most."
+    }
+  ];
+
+  function openModal(i) {
+    const t = themes[i];
+    document.getElementById('modal-dot').style.background = t.color;
+    document.getElementById('modal-title').textContent = t.title;
+    document.getElementById('modal-desc').textContent = t.desc;
+    document.getElementById('overlay').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('overlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
