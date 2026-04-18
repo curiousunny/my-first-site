@@ -1,336 +1,964 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
+
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CALM – Themes in Our Caregiving Journey</title>
+<title>CALM — Themes in our caregiving journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --theme-blue: #2596be;      /* Getting unstuck */
+    --theme-green: #6ba14f;     /* Connecting differently */
+    --theme-navy: #2d3a7a;      /* Blurred lines */
+    --theme-purple: #7c5ca4;    /* An emotional journey */
+    --theme-orange: #e87722;    /* Role of the advocate */
 
+    --bg: #f6efe4;              /* warm cream, matches sample */
+    --bg-soft: #fbf6ec;
+    --ink: #1f1d1b;
+    --ink-soft: #4a4743;
+    --ink-mute: #7a7670;
+    --line: #e6ddcc;
+
+    --serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
   body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- TOP BAR ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(140%) blur(10px);
+    background: color-mix(in oklab, var(--bg) 85%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 40px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { height: 34px; width: auto; display: block; }
+  .brand-divider { width: 1px; height: 24px; background: var(--line); }
+  .nav {
+    display: flex; gap: 28px; font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .nav a { text-decoration: none; }
+  .nav a:hover { color: var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 72px 40px 24px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
     align-items: center;
-    justify-content: center;
-    background: radial-gradient(ellipse at center, #1a2e42 0%, #0d1b2a 55%, #07111c 100%);
-    font-family: 'Georgia', serif;
+  }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 4.8vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+  }
+  .hero h1 em { font-style: italic; color: var(--theme-purple); }
+  .hero p.lede {
+    font-size: 19px; line-height: 1.55; color: var(--ink-soft);
+    max-width: 54ch; margin: 0 0 32px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 22px; border-radius: 999px; text-decoration: none;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
+    border: 1px solid transparent; cursor: pointer;
+    transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-primary:hover { background: #000; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+
+  /* ---------- PETAL FLOWER ---------- */
+  .flower-wrap {
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+  }
+  .flower-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .petal {
+    cursor: pointer;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), filter .3s ease;
+    transform-origin: center;
+    transform-box: fill-box;
+    filter: drop-shadow(0 6px 18px rgba(30, 25, 15, 0.12));
+  }
+  .petal:hover { transform: scale(1.04); filter: drop-shadow(0 14px 30px rgba(30,25,15,.18)); }
+  .petal.is-active { transform: scale(1.06); }
+  .petal svg { color: #fff; }
+  .petal-label {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    fill: #fff;
+    letter-spacing: -0.005em;
+    pointer-events: none;
+    text-anchor: middle;
+  }
+  .center-disc-outer {
+    fill: #ffffff;
+    stroke: rgba(0,0,0,0.08);
+    stroke-width: 1;
+  }
+  .center-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    fill: var(--ink);
+    text-anchor: middle;
+    letter-spacing: -0.01em;
+  }
+  .center-sub {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    fill: var(--ink-soft);
+    text-anchor: middle;
+    font-weight: 400;
+  }
+
+  .flower-hint {
+    position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    font-size: 12px; color: var(--ink-mute); letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- INTRO BAND ---------- */
+  .band {
+    max-width: 1280px; margin: 0 auto;
+    padding: 48px 40px 24px;
+  }
+  .band-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 60px;
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+  }
+  .band-label {
+    font-size: 12px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-mute);
+    padding-top: 6px;
+  }
+  .band-body {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--ink);
+    max-width: 72ch;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- SPIRAL SECTION ---------- */
+  .spiral-section {
+    max-width: 1280px; margin: 0 auto;
+    padding: 72px 40px 80px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .spiral-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    letter-spacing: -0.02em;
+  }
+  .spiral-head p {
+    color: var(--ink-soft); font-size: 17px; line-height: 1.6; max-width: 52ch;
+    margin: 0 0 24px;
+  }
+  .spiral-legend {
+    display: grid; gap: 10px; margin-top: 28px;
+  }
+  .legend-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 10px 14px; border-radius: 12px;
+    cursor: pointer; transition: background .18s ease, transform .18s ease;
+    border: 1px solid transparent;
+  }
+  .legend-row:hover { background: var(--bg-soft); border-color: var(--line); transform: translateX(4px); }
+  .legend-dot {
+    width: 14px; height: 14px; border-radius: 999px; flex-shrink: 0;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--bg) 82%, #fff);
+  }
+  .legend-name {
+    font-family: var(--serif); font-size: 19px; font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .legend-count {
+    margin-left: auto; font-size: 12px; color: var(--ink-mute);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .spiral-stage {
+    position: relative;
+    aspect-ratio: 0.7;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #fbf6ec 0%, #f4ecdc 100%);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 20px;
     overflow: hidden;
   }
-
-  h1 {
-    color: rgba(255,255,255,0.55);
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    text-align: center;
+  .spiral-svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .spiral-path {
+    fill: none; stroke: #2a2622; stroke-width: 1.4; opacity: 0.9;
+    stroke-linecap: round;
   }
-
-  .diagram {
-    position: relative;
-    width: 520px;
-    height: 520px;
+  .spiral-flat {
+    fill: none; stroke: #2a2622; stroke-width: 1.2; opacity: 0.9;
   }
-
-  /* ── Petals ── */
-  .petal {
-    position: absolute;
-    width: 185px;
-    height: 185px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
+  .string-line {
+    stroke: #b8ae97; stroke-width: 0.6; opacity: 0.55;
+  }
+  .spiral-node {
     cursor: pointer;
-    transform: translate(-50%, -50%);
-    transition: filter 0.25s ease, transform 0.25s ease;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
-    animation: breathe 4s ease-in-out infinite;
+    transition: r .2s ease, transform .2s ease, filter .25s ease;
+    transform-origin: center;
+    transform-box: fill-box;
   }
-
-  .petal:hover {
-    filter: brightness(1.18);
+  .spiral-node:hover { filter: drop-shadow(0 4px 10px rgba(0,0,0,.2)); }
+  .spiral-node-halo {
+    fill: none; opacity: 0; transition: opacity .25s ease;
+    stroke-width: 2;
   }
-
-  .petal-label {
-    color: #fff;
-    font-size: 0.78rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    line-height: 1.35;
-    pointer-events: none;
+  .spiral-node-group:hover .spiral-node-halo,
+  .spiral-node-group.is-active .spiral-node-halo { opacity: 0.55; }
+  .spiral-node-group.is-active .spiral-node { filter: drop-shadow(0 0 0 3px #fff); }
+  .spiral-stage-caption {
+    position: absolute; left: 24px; bottom: 20px;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-mute);
   }
+  .spiral-stage-caption strong { color: var(--ink-soft); font-weight: 500; }
 
-  .petal-hint {
-    color: rgba(255,255,255,0.7);
-    font-size: 0.6rem;
-    margin-top: 6px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    pointer-events: none;
+  /* ---------- CLOSING ---------- */
+  .closing {
+    max-width: 1280px; margin: 0 auto;
+    padding: 24px 40px 120px;
   }
-
-  /* Individual petal colors */
-  .petal-1 { background: radial-gradient(circle at 40% 40%, #3dbdad, #2a9d8f); }
-  .petal-2 { background: radial-gradient(circle at 40% 40%, #2e5080, #1d3557); }
-  .petal-3 { background: radial-gradient(circle at 40% 40%, #f2d07a, #e9c46a); }
-  .petal-4 { background: radial-gradient(circle at 40% 40%, #f08060, #e76f51); }
-  .petal-5 { background: radial-gradient(circle at 40% 40%, #7a8a4a, #606c38); }
-
-  /* Animation delays so each petal breathes out of phase */
-  .petal-1 { animation-delay: 0s; }
-  .petal-2 { animation-delay: 0.4s; }
-  .petal-3 { animation-delay: 0.8s; }
-  .petal-4 { animation-delay: 1.2s; }
-  .petal-5 { animation-delay: 1.6s; }
-
-  /* Positions: evenly at 72° intervals, top = -90° */
-  /* top (270°): left=50%, top=50% - r */
-  .petal-1 { left: 50%;  top: calc(50% - 165px); }
-  /* upper-right (342°): */
-  .petal-2 { left: calc(50% + 157px); top: calc(50% - 51px); }
-  /* lower-right (54°): */
-  .petal-3 { left: calc(50% + 97px);  top: calc(50% + 134px); }
-  /* lower-left (126°): */
-  .petal-4 { left: calc(50% - 97px);  top: calc(50% + 134px); }
-  /* upper-left (198°): */
-  .petal-5 { left: calc(50% - 157px); top: calc(50% - 51px); }
-
-  @keyframes breathe {
-    0%   { transform: translate(-50%, -50%) scale(1); }
-    50%  { transform: translate(-50%, calc(-50% - 5px)) scale(1.045); }
-    100% { transform: translate(-50%, -50%) scale(1); }
-  }
-
-  /* ── Center circle ── */
-  .center {
-    position: absolute;
-    width: 148px;
-    height: 148px;
-    border-radius: 50%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255,255,255,0.08);
-    border: 2px solid rgba(255,255,255,0.18);
-    backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
+  .closing-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 60px 56px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 14px;
-    z-index: 10;
-    box-shadow: 0 0 40px rgba(0,0,0,0.5);
   }
-
-  .center-calm {
-    color: #fff;
-    font-size: 1.55rem;
-    font-weight: bold;
-    letter-spacing: 0.12em;
+  .closing-card h3 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 36px; line-height: 1.15; letter-spacing: -0.015em;
+    margin: 0 0 16px;
   }
-
-  .center-camh {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-top: 2px;
+  .closing-card p { color: var(--ink-soft); font-size: 16px; margin: 0 0 24px; }
+  .closing-credits {
+    display: grid; gap: 18px;
+    font-size: 13px; color: var(--ink-soft);
   }
+  .credit-row { display: flex; align-items: center; gap: 14px; }
+  .credit-row img { height: 36px; width: auto; }
+  .credit-row.obi img { height: 30px; }
+  .credit-row span { max-width: 28ch; line-height: 1.45; }
 
-  .center-tagline {
-    color: rgba(255,255,255,0.45);
-    font-size: 0.48rem;
-    margin-top: 8px;
-    letter-spacing: 0.06em;
-    line-height: 1.5;
-  }
-
-  /* ── Modal ── */
-  .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(7, 17, 28, 0.78);
-    backdrop-filter: blur(3px);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .overlay.active { display: flex; }
-
-  .modal {
-    background: #12202e;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 18px;
-    padding: 40px 44px;
-    max-width: 440px;
-    width: 90%;
-    position: relative;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-    animation: modalIn 0.22s ease;
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: scale(0.92) translateY(12px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .modal-dot {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    margin-bottom: 18px;
-  }
-
-  .modal-title {
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 14px;
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 40px;
+    max-width: 1280px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--ink-mute);
     letter-spacing: 0.04em;
   }
 
-  .modal-desc {
-    color: rgba(255,255,255,0.72);
-    font-size: 0.88rem;
-    line-height: 1.75;
+  /* ---------- MODAL ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20, 16, 10, 0.55);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease;
   }
+  .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  .modal {
+    position: fixed; inset: 0; z-index: 101;
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px; pointer-events: none;
+  }
+  .modal-card {
+    width: min(960px, 100%); max-height: 88vh;
+    background: var(--bg); color: var(--ink);
+    border-radius: 20px; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    transform: translateY(16px) scale(.98);
+    opacity: 0; pointer-events: auto;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .25s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  }
+  .modal-backdrop.is-open + .modal .modal-card { transform: none; opacity: 1; }
+  .modal-left {
+    padding: 40px 36px; position: relative;
+    background: var(--theme-color); color: #fff;
+    display: flex; flex-direction: column; gap: 20px;
+    overflow-y: auto;
+  }
+  .modal-icon {
+    width: 72px; height: 72px; border-radius: 16px;
+    background: rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  .modal-icon svg { width: 40px; height: 40px; stroke: #fff; fill: none; stroke-width: 1.6; }
+  .modal-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .modal-left h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 38px; line-height: 1.05; letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .modal-desc {
+    font-size: 15px; line-height: 1.6;
+    opacity: 0.95;
+  }
+  .modal-desc b { font-weight: 600; }
+
+  .modal-right {
+    padding: 0;
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    background: var(--bg);
+  }
+  .video-frame {
+    aspect-ratio: 16/9; background: #111; position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-frame::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,.08), transparent 50%),
+      linear-gradient(135deg, color-mix(in oklab, var(--theme-color) 60%, #000) 0%, #0c0c0e 100%);
+  }
+  .video-frame .play {
+    position: relative; z-index: 2;
+    width: 68px; height: 68px; border-radius: 999px;
+    background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .video-frame .play:hover { transform: scale(1.06); background: #fff; }
+  .video-frame .play svg { width: 22px; height: 22px; margin-left: 3px; fill: #111; }
+  .video-caption {
+    position: absolute; bottom: 14px; left: 18px; z-index: 2;
+    color: rgba(255,255,255,.85); font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .video-duration {
+    position: absolute; bottom: 14px; right: 18px; z-index: 2;
+    color: rgba(255,255,255,.85); font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .resources {
+    padding: 24px 32px 32px;
+  }
+  .resources-label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-mute); margin: 0 0 14px;
+  }
+  .resource {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none; color: var(--ink);
+    transition: padding .2s ease;
+  }
+  .resource:last-child { border-bottom: 1px solid var(--line); }
+  .resource:hover { padding-left: 6px; }
+  .resource-kind {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-mute);
+    width: 68px; flex-shrink: 0;
+  }
+  .resource-title {
+    font-size: 15px; font-weight: 500; line-height: 1.35; flex: 1;
+  }
+  .resource-arrow {
+    width: 28px; height: 28px; border-radius: 999px;
+    background: var(--bg-soft);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .resource:hover .resource-arrow { background: var(--theme-color); transform: translateX(4px); }
+  .resource:hover .resource-arrow svg { stroke: #fff; }
+  .resource-arrow svg { width: 12px; height: 12px; stroke: var(--ink); fill: none; stroke-width: 2; }
 
   .modal-close {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.45);
-    font-size: 1.4rem;
-    cursor: pointer;
-    padding: 4px 8px;
-    line-height: 1;
-    transition: color 0.2s;
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px; border-radius: 999px;
+    background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.3);
+    color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .2s ease;
   }
+  .modal-close:hover { background: rgba(255,255,255,.35); }
+  .modal-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-  .modal-close:hover { color: #fff; }
-
-  footer {
-    margin-top: 28px;
-    color: rgba(255,255,255,0.28);
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-align: center;
-    text-transform: uppercase;
+  @media (max-width: 900px) {
+    .hero, .spiral-section { grid-template-columns: 1fr; gap: 40px; padding: 48px 24px; }
+    .closing-card { grid-template-columns: 1fr; padding: 36px 28px; }
+    .band-row { grid-template-columns: 1fr; gap: 12px; }
+    .modal-card { grid-template-columns: 1fr; max-height: 92vh; }
+    .nav { display: none; }
+    .topbar-inner, .band, .closing, footer { padding-left: 24px; padding-right: 24px; }
   }
 </style>
 </head>
 <body>
 
-<h1>Themes in Our Caregiving Journey</h1>
+<!-- =========== TOP BAR =========== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img src="assets/calm-logo.png" alt="CALM">
+      <span class="brand-divider"></span>
+      <span style="font-size:13px; color:var(--ink-soft); letter-spacing:.02em;">Caregiving journey map</span>
+    </div>
+    <nav class="nav">
+      <a href="#themes">Themes</a>
+      <a href="#spiral">The spiral</a>
+      <a href="#about">About</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </div>
+</header>
 
-<div class="diagram">
-
-  <!-- Petals -->
-  <div class="petal petal-1" onclick="openModal(0)">
-    <span class="petal-label">Getting<br>Unstuck</span>
-    <span class="petal-hint">tap to explore</span>
+<!-- =========== HERO =========== -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">A map for caregivers</div>
+    <h1>Five themes in <em>our</em> caregiving&nbsp;journey.</h1>
+    <p class="lede">
+      Created <em>by</em> and <em>for</em> caregivers of loved ones with multiple mental health conditions.
+      This map is non-linear — wherever you are in the journey, you are not alone, and help is available.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#themes">
+        Explore the themes
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+      </a>
+      <a class="btn btn-ghost" href="#spiral">See the spiral</a>
+    </div>
   </div>
 
-  <div class="petal petal-2" onclick="openModal(1)">
-    <span class="petal-label">Blurred<br>Lines</span>
-    <span class="petal-hint">tap to explore</span>
+  <!-- FLOWER -->
+  <div class="flower-wrap" id="themes">
+    <svg class="flower-svg" viewBox="0 0 640 640" aria-label="Five themes arranged as circular petals">
+      <g id="petals"></g>
+      <g id="flowerCenter"></g>
+    </svg>
+    <div class="flower-hint">Tap a petal to learn more ↑</div>
+  </div>
+</section>
+
+<!-- =========== INTRO BAND =========== -->
+<section class="band" id="about">
+  <div class="band-row">
+    <div class="band-label">About the map</div>
+    <div class="band-body">
+      The caregiving journey is rarely a straight line. This map gathers five themes that caregivers
+      return to — sometimes all at once — as they walk alongside loved ones living with multiple
+      mental health conditions.
+    </div>
+  </div>
+  <div class="band-row">
+    <div class="band-label">How to use it</div>
+    <div class="band-body">
+      Tap a petal above, or a dot on the spiral below, to open a theme. Each opens with a short
+      description, a caregiver's reflection on video, and resources you can take with you.
+    </div>
+  </div>
+</section>
+
+<!-- =========== SPIRAL =========== -->
+<section class="spiral-section" id="spiral">
+  <div class="spiral-head">
+    <div class="hero-eyebrow" style="margin-bottom:16px;">The upward spiral</div>
+    <h2>Non-linear, but always moving&nbsp;forward.</h2>
+    <p>
+      You could be at any point in the spiral at once — returning to <em>getting unstuck</em> while
+      you're already well into <em>the emotional journey</em>. The shape is deliberate: a caregiving
+      journey loops, but it also rises.
+    </p>
+    <p>Each dot on the spiral is a theme. Click one to open it.</p>
+
+    <div class="spiral-legend" id="legend"></div>
   </div>
 
-  <div class="petal petal-3" onclick="openModal(2)">
-    <span class="petal-label">An Emotional<br>Journey</span>
-    <span class="petal-hint">tap to explore</span>
+  <div class="spiral-stage">
+    <svg class="spiral-svg" viewBox="0 0 400 640" preserveAspectRatio="xMidYMid meet"
+         aria-label="Animated spiral mobile with five floating theme dots">
+      <!-- ceiling line -->
+      <line x1="40" y1="22" x2="360" y2="22" stroke="#c9bfa9" stroke-width="1" stroke-dasharray="2 4"/>
+      <!-- anchor point where all strings originate -->
+      <circle cx="200" cy="22" r="2.5" fill="#7a7670"/>
+      <!-- vertical strings (one per dot) -->
+      <g id="strings"></g>
+      <!-- the hanging 3D spiral coil -->
+      <path id="spiralPath" class="spiral-path" d=""></path>
+      <!-- disc at the bottom -->
+      <ellipse id="spiralBase" cx="0" cy="0" rx="0" ry="0" fill="#efe6d2" stroke="#2a2622" stroke-width="1.2" opacity="0.85"/>
+      <path id="spiralFlat" class="spiral-flat" d=""></path>
+      <!-- floating dots -->
+      <g id="spiralDots"></g>
+    </svg>
+    <div class="spiral-stage-caption">
+      <strong>Spiral mobile</strong> &nbsp; · &nbsp; the dots drift — the journey keeps moving
+    </div>
   </div>
+</section>
 
-  <div class="petal petal-4" onclick="openModal(3)">
-    <span class="petal-label">Role of the<br>Advocate</span>
-    <span class="petal-hint">tap to explore</span>
+<!-- =========== CLOSING =========== -->
+<section class="closing" id="resources">
+  <div class="closing-card">
+    <div>
+      <h3>Created <em style="color:var(--theme-purple); font-style:italic;">by</em> and <em style="color:var(--theme-orange); font-style:italic;">for</em> caregivers.</h3>
+      <p>
+        This map was co-designed with caregivers and clinicians. Each theme links to resources gathered
+        across partner organizations — from peer-led groups to clinician conversation guides.
+      </p>
+      <a class="btn btn-primary" href="#">
+        Download the full map (PDF)
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12m0 0l-5-5m5 5l5-5M4 20h16"></path></svg>
+      </a>
+    </div>
+    <div class="closing-credits">
+      <div class="credit-row">
+        <img src="assets/calm-logo.png" alt="CALM">
+        <span>Caregivers Advocating &amp; Learning for Mental health</span>
+      </div>
+      <div class="credit-row obi">
+        <img src="assets/obi-logo.jpg" alt="Ontario Brain Institute">
+        <span>Supported by the Ontario Brain Institute</span>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="petal petal-5" onclick="openModal(4)">
-    <span class="petal-label">Connecting<br>Differently</span>
-    <span class="petal-hint">tap to explore</span>
-  </div>
+<footer>
+  <div>© 2026 CALM · All reflections shared with permission</div>
+  <div>Land acknowledgement · Accessibility · Contact</div>
+</footer>
 
-  <!-- Center -->
-  <div class="center">
-    <div class="center-calm">CALM</div>
-    <div class="center-camh">× CAMH</div>
-    <div class="center-tagline">Created by and for<br>caregivers of loved ones<br>with multiple mental<br>health conditions</div>
-  </div>
-
-</div>
-
-<footer>Click any petal to learn more &nbsp;·&nbsp; Press Esc to close</footer>
-
-<!-- Modal -->
-<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div class="modal-dot" id="modal-dot"></div>
-    <div class="modal-title" id="modal-title"></div>
-    <div class="modal-desc" id="modal-desc"></div>
+<!-- =========== MODAL =========== -->
+<div class="modal-backdrop" id="backdrop"></div>
+<div class="modal" id="modalWrap" aria-hidden="true" style="display: none;">
+  <div class="modal-card" id="modalCard" style="--theme-color: #e87722;">
+    <div class="modal-left">
+      <button class="modal-close" id="modalClose" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+      <div class="modal-icon" id="modalIcon"></div>
+      <div class="modal-eyebrow" id="modalEyebrow"></div>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-desc" id="modalDesc"></div>
+    </div>
+    <div class="modal-right">
+      <div class="video-frame" id="modalVideo">
+        <div class="video-caption" id="modalVideoCaption"></div>
+        <div class="video-duration">4:12</div>
+        <div class="play" title="Play video">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="resources">
+        <p class="resources-label">Resources &amp; links</p>
+        <div id="modalResources"></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-  const themes = [
-    {
-      title: "Getting Unstuck",
-      color: "#2a9d8f",
-      desc: "Connecting with curiosity, patience, and openness to change. This theme explores self-awareness and personal growth as caregivers learn to navigate uncertainty and find new ways forward on their journey."
-    },
-    {
-      title: "Blurred Lines",
-      color: "#1d3557",
-      desc: "Navigating the mental healthcare system, partnering with clinicians, and working toward collaboration for understanding and healing. The boundaries between caregiver, patient, and system can feel unclear — and learning to work within them takes courage."
-    },
-    {
-      title: "An Emotional Journey",
-      color: "#e9c46a",
-      desc: "Caregivers often face their own mental health challenges while supporting a loved one. This theme is about developing coping strategies, finding resilience, and connecting with others who truly understand the emotional weight of this role."
-    },
-    {
-      title: "Role of the Advocate",
-      color: "#e76f51",
-      desc: "Navigating a system that doesn't always feel trustworthy, and carrying the uncertainty of advocacy — especially for immigrants and marginalized groups who face additional barriers. This theme honours the strength it takes to speak up for a loved one."
-    },
-    {
-      title: "Connecting Differently",
-      color: "#606c38",
-      desc: "Supporting and nurturing your relationship with your loved one when mental illness changes how you connect. This theme explores new ways of being present, communicating with care, and maintaining the bond that matters most."
-    }
+/* ---------- THEMES DATA ---------- */
+const THEMES = [
+  {
+    id: 'getting-unstuck',
+    name: 'Getting unstuck',
+    color: 'var(--theme-blue)',
+    hex: '#2596be',
+    angle: -90,
+    desc: `As a caregiver of someone with multiple mental health conditions, you could be at <b>any point in the spiral map</b> — simultaneously and non-linearly. You may feel lost. You may feel that change is the only constant. Wherever you are, know that you are not alone and that help is available.`,
+    video: 'Watch a caregiver share their experience',
+    icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M8 14c1.5-2 6.5-2 8 0"/><circle cx="9.5" cy="10.5" r="1"/><circle cx="14.5" cy="10.5" r="1"/></svg>`,
+    resources: [
+      { kind: 'Video', title: 'A caregiver on feeling stuck — and finding the first step forward' },
+      { kind: 'Guide', title: 'Grounding practices for overwhelming moments' },
+      { kind: 'Peer', title: 'Join a peer-led circle for caregivers' },
+    ],
+  },
+  {
+    id: 'blurred-lines',
+    name: 'Messiness of blurred lines',
+    shortName: 'Blurred lines',
+    color: 'var(--theme-navy)',
+    hex: '#2d3a7a',
+    angle: -18,
+    desc: `Navigating the mental healthcare system can be overwhelming. When caregivers and their loved ones are able to <b>partner with clinicians</b>, the diagnostic lines become less blurry, and care can be less siloed. This collaboration helps create space for understanding and healing together.`,
+    video: 'Learn more about meaningful partnerships',
+    icon: `<svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="5"/><path d="M14 14l6 6M8 10h4M10 8v4"/></svg>`,
+    resources: [
+      { kind: 'Video', title: 'What meaningful partnership with clinicians looks like' },
+      { kind: 'Guide', title: 'Questions to bring to your next appointment' },
+      { kind: 'Tool', title: 'A shared-notes template for care teams' },
+    ],
+  },
+  {
+    id: 'emotional-journey',
+    name: 'An emotional journey',
+    shortName: 'Emotional journey',
+    color: 'var(--theme-purple)',
+    hex: '#7c5ca4',
+    angle: 54,
+    desc: `A diagnosis often leads caregivers to face their <b>own mental health challenges</b> and develop their own coping strategies. The journey is deeply personal and social. As you seek to connect with those who understand, and as you reflect inwards, you integrate lessons and solidify what is truly meaningful to you.`,
+    video: 'Watch a caregiver reflect on their journey',
+    icon: `<svg viewBox="0 0 24 24"><path d="M6 18c2-6 5-9 9-10M9 18l2-3M13 15l2-2M17 11l1-2"/><circle cx="12" cy="7" r="2"/></svg>`,
+    resources: [
+      { kind: 'Video', title: 'A caregiver reflects on finding meaning in the journey' },
+      { kind: 'Guide', title: 'Caring for yourself while caring for others' },
+      { kind: 'Therapy', title: 'Find a therapist who works with caregivers' },
+    ],
+  },
+  {
+    id: 'advocate',
+    name: 'Role of the advocate',
+    color: 'var(--theme-orange)',
+    hex: '#e87722',
+    angle: 126,
+    desc: `You may lack trust in the healthcare system and feel unsure how to advocate for your needs. This uncertainty magnifies if you are an immigrant, part of a marginalized group, or dysregulated in urgent-care environments. <b>Preparation and community can change the room you walk into.</b>`,
+    video: 'Explore tools that can help you navigate the system',
+    icon: `<svg viewBox="0 0 24 24"><path d="M4 10v4l9 6V4l-9 6zM13 7c2 1 2 9 0 10"/></svg>`,
+    resources: [
+      { kind: 'Tool', title: 'A prep sheet for ER and urgent-care visits' },
+      { kind: 'Guide', title: 'Advocating when the system doesn\u2019t listen' },
+      { kind: 'Peer', title: 'Caregivers of colour: peer-led advocacy circle' },
+    ],
+  },
+  {
+    id: 'connecting',
+    name: 'Connecting differently',
+    shortName: 'Connecting',
+    color: 'var(--theme-green)',
+    hex: '#6ba14f',
+    angle: -162,
+    desc: `You and your loved one benefit most by connecting with <b>curiosity, patience, and openness to change</b>. To do so is a journey of self-awareness and growth. You will continuously adapt, learn new skills, and discover ways to deepen your connection.`,
+    video: 'Explore resources for supporting your relationship',
+    icon: `<svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2.2"/><circle cx="16" cy="9" r="2.2"/><circle cx="12" cy="15" r="2.2"/><path d="M8 11v2M16 11v2M10 14l4 0"/></svg>`,
+    resources: [
+      { kind: 'Video', title: 'Reconnecting with a loved one after diagnosis' },
+      { kind: 'Guide', title: 'Starter conversations for hard weeks' },
+      { kind: 'Book', title: 'A reading list on relationship repair' },
+    ],
+  },
+];
+
+const ORDER = ['getting-unstuck', 'blurred-lines', 'emotional-journey', 'advocate', 'connecting'];
+const themeById = Object.fromEntries(THEMES.map(t => [t.id, t]));
+
+/* ---------- DRAW FLOWER PETALS ---------- */
+(function drawPetals() {
+  const g = document.getElementById('petals');
+  const center = document.getElementById('flowerCenter');
+  const cx = 320, cy = 320;
+  const centerR = 116;
+  const petalR = 112;
+  const ringR = 190;
+
+  const arrangement = [
+    { id: 'getting-unstuck',   angle: -90 },
+    { id: 'blurred-lines',     angle: -18 },
+    { id: 'emotional-journey', angle:  54 },
+    { id: 'advocate',          angle: 126 },
+    { id: 'connecting',        angle: 198 },
   ];
 
-  function openModal(i) {
-    const t = themes[i];
-    document.getElementById('modal-dot').style.background = t.color;
-    document.getElementById('modal-title').textContent = t.title;
-    document.getElementById('modal-desc').textContent = t.desc;
-    document.getElementById('overlay').classList.add('active');
-  }
+  const rad = a => (a * Math.PI) / 180;
 
-  function closeModal() {
-    document.getElementById('overlay').classList.remove('active');
-  }
+  arrangement.forEach(({ id, angle }) => {
+    const t = themeById[id];
+    const px = cx + Math.cos(rad(angle)) * ringR;
+    const py = cy + Math.sin(rad(angle)) * ringR;
 
-  function handleOverlayClick(e) {
-    if (e.target === document.getElementById('overlay')) closeModal();
-  }
+    const iconSize = 80;
+    const iconX = px - iconSize / 2;
+    const iconY = py - iconSize / 2 - 14;
+    const labelY = py + 40;
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    const iconInner = t.icon.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
+
+    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    petal.classList.add('petal');
+    petal.dataset.id = t.id;
+    petal.setAttribute('role', 'button');
+    petal.setAttribute('tabindex', '0');
+    petal.innerHTML = `
+      <circle cx="${px}" cy="${py}" r="${petalR}" fill="${t.hex}"></circle>
+      <svg x="${iconX}" y="${iconY}" width="${iconSize}" height="${iconSize}" viewBox="0 0 24 24"
+           fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+           style="overflow:visible;">
+        ${iconInner}
+      </svg>
+      <text class="petal-label" x="${px}" y="${labelY}" dy="0.35em">
+        ${t.shortName || t.name}
+      </text>
+    `;
+    petal.addEventListener('click', () => openModal(t.id));
+    petal.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(t.id); }
+    });
+    g.appendChild(petal);
   });
+
+  center.innerHTML = `
+    <circle class="center-disc-outer" cx="${cx}" cy="${cy}" r="${centerR}"></circle>
+    <image href="assets/calm-logo.png" x="${cx - 46}" y="${cy - 86}" width="92" height="42" preserveAspectRatio="xMidYMid meet"/>
+    <text class="center-title" x="${cx}" y="${cy - 18}">Themes in our</text>
+    <text class="center-title" x="${cx}" y="${cy + 8}">caregiving journey</text>
+    <text class="center-sub" x="${cx}" y="${cy + 36}">Created by and for caregivers of</text>
+    <text class="center-sub" x="${cx}" y="${cy + 52}">loved ones with multiple mental</text>
+    <text class="center-sub" x="${cx}" y="${cy + 68}">health conditions</text>
+  `;
+})();
+
+
+/* ---------- ANIMATED SPIRAL MOBILE ---------- */
+(function drawSpiralMobile() {
+  const spiralPath = document.getElementById('spiralPath');
+  const spiralBase = document.getElementById('spiralBase');
+  const spiralFlat = document.getElementById('spiralFlat');
+  const stringsG = document.getElementById('strings');
+  const dotsG = document.getElementById('spiralDots');
+
+  const anchorX = 200, anchorY = 22;
+  const discCX = 200, discCY = 560;
+  const discRX = 95, discRY = 26;
+
+  // Build hanging 3D spiral path
+  const pts = [];
+  const turns = 4.2;
+  const steps = 420;
+  const topY = 70;
+  const bottomY = discCY - 6;
+  const maxR = 78;
+  const ySquish = 0.32;
+
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const theta = t * turns * Math.PI * 2;
+    const r = 4 + maxR * Math.pow(t, 0.85);
+    const yCenter = bottomY - (bottomY - topY) * t;
+    const x = anchorX + Math.cos(theta) * r;
+    const y = yCenter + Math.sin(theta) * r * ySquish;
+    pts.push([x, y]);
+  }
+  const d = pts.map((p, i) => (i === 0 ? `M${p[0].toFixed(1)} ${p[1].toFixed(1)}` : `L${p[0].toFixed(1)} ${p[1].toFixed(1)}`)).join(' ');
+  spiralPath.setAttribute('d', d);
+
+  // Bottom flat disc
+  spiralBase.setAttribute('cx', discCX);
+  spiralBase.setAttribute('cy', discCY);
+  spiralBase.setAttribute('rx', discRX);
+  spiralBase.setAttribute('ry', discRY);
+
+  // Flat archimedean spiral on disc
+  const flatPts = [];
+  const flatTurns = 2.5;
+  const flatSteps = 160;
+  for (let i = 0; i <= flatSteps; i++) {
+    const t = i / flatSteps;
+    const theta = t * flatTurns * Math.PI * 2;
+    const r = 6 + (discRX - 10) * t;
+    const x = discCX + Math.cos(theta) * r;
+    const y = discCY + Math.sin(theta) * r * (discRY / discRX);
+    flatPts.push([x, y]);
+  }
+  spiralFlat.setAttribute('d', flatPts.map((p, i) => (i === 0 ? `M${p[0].toFixed(1)} ${p[1].toFixed(1)}` : `L${p[0].toFixed(1)} ${p[1].toFixed(1)}`)).join(' '));
+
+  // Colored dots at positions along the spiral
+  const spiralOrder = ['getting-unstuck', 'blurred-lines', 'connecting', 'emotional-journey', 'advocate'];
+  const basePositions = [0.93, 0.78, 0.58, 0.38, 0.22];
+  const jitter = [0.02, -0.03, 0.04, -0.02, 0.03];
+
+  spiralOrder.forEach((id, i) => {
+    const t = themeById[id];
+    const pos = Math.max(0.05, Math.min(0.98, basePositions[i] + jitter[i]));
+    const idx = Math.round(pos * steps);
+    const [x, y] = pts[idx];
+
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('class', 'string-line');
+    line.setAttribute('x1', x);
+    line.setAttribute('y1', anchorY);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    stringsG.appendChild(line);
+
+    const wrap = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    wrap.classList.add('spiral-node-group');
+    wrap.dataset.id = id;
+    wrap.setAttribute('role', 'button');
+    wrap.setAttribute('tabindex', '0');
+    wrap.innerHTML = `
+      <circle class="spiral-node-halo" cx="${x}" cy="${y}" r="13" stroke="${t.hex}"></circle>
+      <circle class="spiral-node" cx="${x}" cy="${y}" r="6.5" fill="${t.hex}" stroke="#fff" stroke-width="1.2"></circle>
+    `;
+    wrap.dataset.baseX = x;
+    wrap.dataset.baseY = y;
+    const phase = Math.random() * Math.PI * 2;
+    const ampY = 4 + Math.random() * 7;
+    const ampX = 1 + Math.random() * 2.5;
+    const speed = 0.35 + Math.random() * 0.4;
+    wrap.dataset.phase = phase;
+    wrap.dataset.ampY = ampY;
+    wrap.dataset.ampX = ampX;
+    wrap.dataset.speed = speed;
+    wrap.addEventListener('click', () => openModal(id));
+    wrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(id); }
+    });
+    dotsG.appendChild(wrap);
+  });
+
+  // Animate dots independently
+  const start = performance.now();
+  function tick(now) {
+    const tSec = (now - start) / 1000;
+    dotsG.querySelectorAll('.spiral-node-group').forEach(g => {
+      const phase = parseFloat(g.dataset.phase);
+      const ampY = parseFloat(g.dataset.ampY);
+      const ampX = parseFloat(g.dataset.ampX);
+      const speed = parseFloat(g.dataset.speed);
+      const ox = Math.sin(tSec * speed * 2 * Math.PI + phase) * ampX;
+      const oy = Math.sin(tSec * speed * 2 * Math.PI + phase + Math.PI / 3) * ampY;
+      g.setAttribute('transform', `translate(${ox.toFixed(2)} ${oy.toFixed(2)})`);
+    });
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Render legend
+  const legend = document.getElementById('legend');
+  ORDER.forEach((id) => {
+    const t = themeById[id];
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.innerHTML = `
+      <span class="legend-dot" style="background:${t.hex};"></span>
+      <span class="legend-name">${t.name}</span>
+      <span class="legend-count">Theme 0${ORDER.indexOf(id) + 1}</span>
+    `;
+    row.addEventListener('click', () => openModal(id));
+    legend.appendChild(row);
+  });
+})();
+
+/* ---------- MODAL ---------- */
+const backdrop = document.getElementById('backdrop');
+const modalWrap = document.getElementById('modalWrap');
+const modalCard = document.getElementById('modalCard');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalIcon = document.getElementById('modalIcon');
+const modalEyebrow = document.getElementById('modalEyebrow');
+const modalResources = document.getElementById('modalResources');
+const modalVideoCaption = document.getElementById('modalVideoCaption');
+const modalClose = document.getElementById('modalClose');
+
+function openModal(id) {
+  const t = themeById[id];
+  const idx = ORDER.indexOf(id) + 1;
+  modalCard.style.setProperty('--theme-color', t.hex);
+  modalTitle.textContent = t.name;
+  modalDesc.innerHTML = t.desc;
+  modalEyebrow.textContent = `Theme 0${idx} · ${t.shortName || t.name}`;
+  modalIcon.innerHTML = t.icon;
+  modalVideoCaption.textContent = t.video;
+  modalResources.innerHTML = t.resources.map(r => `
+    <a class="resource" href="#">
+      <span class="resource-kind">${r.kind}</span>
+      <span class="resource-title">${r.title}</span>
+      <span class="resource-arrow">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+  `).join('');
+
+  modalWrap.style.display = 'flex';
+  requestAnimationFrame(() => {
+    backdrop.classList.add('is-open');
+  });
+  document.querySelectorAll('.petal').forEach(p => p.classList.toggle('is-active', p.dataset.id === id));
+  document.querySelectorAll('.spiral-node-group').forEach(p => p.classList.toggle('is-active', p.dataset.id === id));
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  backdrop.classList.remove('is-open');
+  setTimeout(() => { modalWrap.style.display = 'none'; }, 260);
+  document.querySelectorAll('.petal.is-active, .spiral-node-group.is-active')
+    .forEach(el => el.classList.remove('is-active'));
+  document.body.style.overflow = '';
+}
+
+backdrop.addEventListener('click', closeModal);
+modalClose.addEventListener('click', closeModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
 </script>
-</body>
-</html>
+
+</body></html>
